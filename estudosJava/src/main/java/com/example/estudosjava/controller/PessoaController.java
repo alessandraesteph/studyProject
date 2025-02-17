@@ -2,7 +2,7 @@ package com.example.estudosjava.controller;
 
 import com.example.estudosjava.entity.PessoaEntity;
 import com.example.estudosjava.service.PessoaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,38 +12,39 @@ import java.util.Optional;
 @RequestMapping("/pessoas")
 public class PessoaController {
 
-    @Autowired
     private final PessoaService pessoaService;
 
     public PessoaController(PessoaService pessoaService) {
         this.pessoaService = pessoaService;
     }
 
-    @PostMapping
-    public PessoaEntity createPessoa(@RequestBody PessoaEntity pessoaEntity){
-        System.out.println("Dados recebidos" + pessoaEntity);
+    @PostMapping // OK
+    public PessoaEntity createPessoa(@RequestBody PessoaEntity pessoaEntity) {
         return pessoaService.createPessoa(pessoaEntity);
     }
-
-    @DeleteMapping
-    public void deletePessoa(PessoaEntity pessoaEntity){
-        pessoaService.deletarPessoa(pessoaEntity);
+    @PutMapping("/{id}") //OK
+    public PessoaEntity atualizarPessoa(@PathVariable Long id, @RequestBody PessoaEntity pessoaEntity){
+        return pessoaService.atualizarPessoa(id, pessoaEntity);
     }
 
-    @GetMapping
-    public List<PessoaEntity> listarPessoas(){
+    @DeleteMapping //OK
+    public ResponseEntity<Void> deletePessoa() {
+        return pessoaService.deletarTodasPessoa();
+    }
+
+    @GetMapping//OK
+    public List<PessoaEntity> listarPessoas() {
         return pessoaService.listarPessoas();
     }
-    @GetMapping("/{id}")
-    public Optional<PessoaEntity> listarPessoaPorId(@PathVariable Long id){
-        return pessoaService.listarPessoaPorId(id)  ;
+
+    @GetMapping("/{id}")//OK
+    public Optional<PessoaEntity> BucarPessoaPorId(@PathVariable Long id) {
+        return pessoaService.BuscarPessoaPorId(id);
     }
-    @DeleteMapping("/{id}")
-    public void deletePessoaPorId(@PathVariable Long id){
+
+    @DeleteMapping("/{id}")//OK
+    public void deletePessoaPorId(@PathVariable Long id) {
         pessoaService.deletarPessoaPorId(id);
     }
-
-
-
 
 }

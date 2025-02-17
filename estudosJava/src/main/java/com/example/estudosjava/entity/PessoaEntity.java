@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity // a classe será uma entidade no banco de dados
@@ -16,9 +17,10 @@ public class PessoaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nome_Completo;
-    private Date data_Nascimento;
+    private String nome;
+    private String email;
+    private String telefone;
+    private String dataNascimento;
     private String cpf;
-    private String rg;
     private String endereco;
 }
